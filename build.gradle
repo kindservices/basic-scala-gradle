@@ -1,0 +1,33 @@
+plugins {
+    id 'scala'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+ext {
+    scalaVersion = '3.4.1'
+}
+
+dependencies {
+    implementation "org.scala-lang:scala3-library_3:$scalaVersion"
+    
+    // Testing libraries
+    testImplementation 'org.scalatest:scalatest_3:3.2.11' // Adjust the version as necessary
+    testRuntimeOnly 'org.scalatestplus:junit-4-13_3:3.2.11.0'
+}
+
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.additionalParameters = ["-deprecation", "-feature"]
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
